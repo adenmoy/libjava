@@ -1,0 +1,32 @@
+
+
+
+sudo apt update
+sudo apt install docker.io -y
+sudo systemctl enable --now docker
+sudo usermod -aG docker $USER
+
+docker run -d \
+  --name mailhog \
+  -p 1025:1025 \
+  -p 8025:8025 \
+  mailhog/mailhog
+  
+docker stop mailhog
+docker rm mailhog
+
+/****/
+
+http://localhost:8025/
+
+/****/
+
+
+props.put("mail.smtp.host", "localhost");
+props.put("mail.smtp.port", "1025");
+props.put("mail.smtp.auth", "false");
+props.put("mail.smtp.starttls.enable", "false");
+
+mensaje.setFrom(new InternetAddress("prueba@mailhog.local"));
+
+
